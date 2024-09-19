@@ -1,10 +1,10 @@
-/**
+
 const { adams } = require("../Ibrahim/adams");
 const yts = require('yt-search');
 const BaseUrl = 'https://api.giftedtechnexus.co.ke';
 const giftedapikey = 'ibrahimtech_ai';
 //const adam = 'prabath-api_5f6557';
-
+/**
 adams({
   nomCom: "video",
   categorie: "Search",
@@ -122,14 +122,14 @@ adams({
 });
 **/
 adams({
-  nomCom: "play",
-  categorie: "Download",
-  reaction: "🎧"
+  nomCom: "video",
+  categorie: "Search",
+  reaction: "🎥"
 }, async (dest, zk, commandeOptions) => {
   const { ms, repondre, arg } = commandeOptions;
 
   if (!arg[0]) {
-    repondre("Please insert a song name.");
+    repondre("Please insert a song/video name.");
     return;
   }
 
@@ -144,41 +144,44 @@ adams({
     if (videos && videos.length > 0) {
       const videoUrl = videos[0].url;
 
-      // Call the API endpoint with the video URL to fetch audio download URL
-      const apiResponse = await fetch(`${BaseUrl}/api/download/ytmp3?url=${encodeURIComponent(videoUrl)}&apikey=${giftedapikey}`);
+      // Call the API endpoint with the video URL to fetch the video download URL
+      const apiResponse = await fetch(`${BaseUrl}/api/download/ytmp4?url=${encodeURIComponent(videoUrl)}&apikey=${giftedapikey}`);
       const apiResult = await apiResponse.json();
 
+
       if (apiResult.status === 200 && apiResult.success) {
-        const audioDlUrl = apiResult.result.download_url;
-        
-        // Prepare the message with song details
+        const videoDlUrl = apiResult.result.download_url;
+
+        // Prepare the message with video details
         const infoMess = {
           image: { url: videos[0].thumbnail },
-          caption: `*BMW SONG PLAYER*\n\n*◁ II ▷ 1:00 •၊၊||၊|။||။||၊|||။ ၊|•${videos[0].timestamp}*\n\n*©Ibrahim Adams*`
+         caption: `Bmw is downloading ${apiResult.result.title} by ${videos[0].author.name}\n Time : ${videos[0].timestamp}\n\n
+> ©Ibrahim Adams`
         };
 
-        // Send song details
+        // Send video details
         await zk.sendMessage(dest, infoMess, { quoted: ms });
 
-        // Send the audio as a Buffer instead of URL
+        // Send the video as a URL (direct download link)
         await zk.sendMessage(dest, {
-          audio: { url: audioDlUrl },
-          mimetype: 'audio/mp4'
+          video: { url: videoDlUrl },
+          mimetype: 'video/mp4',
+          
         }, { quoted: ms });
 
-        repondre(`*Bmw Just Downloaded ${apiResult.result.title}*\n\n*®Adams 2024*`);
-   
-      } else {
-        repondre('Failed to download audio. Please try again later.');
+        repondre('Downloded Successfully ✅');
+     } else {
+        repondre('Searching...⏳');
       }
     } else {
-      repondre('No audio found.');
+      repondre('No videos found.');
     }
   } catch (error) {
     console.error('Error from API:', error);
-    repondre('An error occurred while searching or downloading the audio.');
+    repondre('Searching...⏳');
   }
 });
+
 adams({
   nomCom: "play",
   categorie: "Download",
