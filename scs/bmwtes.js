@@ -1,7 +1,7 @@
 
 const { adams } = require("../Ibrahim/adams");
 const yts = require('yt-search');
-const BaseUrl = 'https://api.giftedtechnexus.co.ke';
+const BaseUrl = 'https://api-gifted-tech.onrender.com';
 const giftedapikey = 'ibrahimtech_ai';
 //const adam = 'prabath-api_5f6557';
 /**
