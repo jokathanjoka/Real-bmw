@@ -1,5 +1,5 @@
 
-const { adams } = require("../Ibrahim/adams");
+const { zokou } = require("../framework/zokou");
 const yts = require('yt-search');
 const BaseUrl = 'https://api-gifted-tech.onrender.com';
 const giftedapikey = 'ibrahimtech_ai';
@@ -121,7 +121,7 @@ adams({
   }
 });
 **/
-adams({
+zokou({
   nomCom: "video",
   categorie: "Search",
   reaction: "🎥"
@@ -181,7 +181,7 @@ adams({
   }
 });
 
-adams({
+zokou({
   nomCom: "play",
   categorie: "Download",
   reaction: "🎧"
@@ -240,7 +240,7 @@ adams({
   }
 });
 
-adams({
+zokou({
   nomCom: "song",
   categorie: "Download",
   reaction: "🎸"
